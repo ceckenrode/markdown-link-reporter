@@ -9,7 +9,7 @@ import { runChain } from "./utils/helpers";
 import { Options } from "./types";
 import { ValidatedLink } from "./types";
 
-const opts = parseOpts();
+const opts: Options = parseOpts();
 
 console.log(chalk.bold.cyan("Starting Markdown Reporter..."));
 

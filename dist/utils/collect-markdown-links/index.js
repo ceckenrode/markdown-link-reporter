@@ -31,7 +31,9 @@ function collectMarkdownLinks(opts) {
                 links.push({ link: link, line: index + 1 });
             });
         });
-        var markdownObj = { filepath: file };
+        var markdownObj = {
+            filepath: file
+        };
         markdownObj.links = lodash_1.map(links, function (link) {
             return {
                 link: link.link,

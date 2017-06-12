@@ -3,8 +3,8 @@ import * as path from "path";
 import * as fs from "fs";
 import { forEach as _forEach, map as _map } from "lodash";
 import { ValidatedLink } from "../../types";
-import { MARKDOWN_LINK_MATCH, MARKDOWN_LINK_URL_MATCH } from "../../patterns";
 import { Options } from "./../../types";
+import { MARKDOWN_LINK_MATCH, MARKDOWN_LINK_URL_MATCH } from "../../patterns";
 
 function collectMarkdownLinks(opts: Options): ValidatedLink[] {
   let markdownFiles: string[] = [];
@@ -27,7 +27,7 @@ function collectMarkdownLinks(opts: Options): ValidatedLink[] {
   const markdownFileLinks: ValidatedLink[] = [];
 
   _forEach(markdownFiles, file => {
-    const fileLines = fs.readFileSync(file, "utf-8").split("\n");
+    const fileLines: string[] = fs.readFileSync(file, "utf-8").split("\n");
     const links: { link: string; line: number }[] = [];
     _forEach(fileLines, (line, index) => {
       const matches = line.match(MARKDOWN_LINK_MATCH) || [];
@@ -35,7 +35,9 @@ function collectMarkdownLinks(opts: Options): ValidatedLink[] {
         links.push({ link, line: index + 1 });
       });
     });
-    const markdownObj: any = { filepath: file };
+    const markdownObj: ValidatedLink | any = {
+      filepath: file
+    };
     markdownObj.links = _map(links, link => {
       return {
         link: link.link,
