@@ -1,7 +1,7 @@
 import * as path from "path";
-import * as fs from "fs";
 import { map as _map } from "lodash";
 import uriDecoder from "../uri-decoder";
+import fsExistCaseSync from "./fs-exists-with-case-sync";
 import { ValidatedLink } from "./../../types";
 import { Options } from "./../../types";
 
@@ -17,7 +17,7 @@ function validateLinks(
         splitMdPath.slice(0, splitMdPath.length - 1).join("/"),
         uriDecoder(link.url)
       );
-      link.valid = fs.existsSync(resolvedLinkPath);
+      link.valid = fsExistCaseSync(resolvedLinkPath);
       return link;
     });
     return md;

@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [1.06]
+## [1.07]
 
 ### Added
 
@@ -16,3 +16,5 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 * Added chalk to color output
 
 * Added URI decoder
+
+* Add case sensitive file checks
