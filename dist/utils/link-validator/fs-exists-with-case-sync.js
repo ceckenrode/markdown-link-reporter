@@ -10,28 +10,23 @@ function fileExistsWithCaseSync(filepath) {
         return false;
     }
 }
-function recurse(filepath) {
-    var dir = filepath;
-    var prevfilepath = filepath;
+function recurse(filePath) {
+    var fileDir = filePath;
+    var prevFilePath = filePath;
     var result = null;
-    try {
-        while (result === null) {
-            dir = path.dirname(dir);
-            if (dir === "/" || dir === ".") {
-                result = true;
-                break;
-            }
-            var filenames = fs.readdirSync(dir);
-            if (filenames.indexOf(path.basename(prevfilepath)) === -1) {
-                result = false;
-                break;
-            }
-            prevfilepath = dir;
+    while (result === null) {
+        fileDir = path.dirname(fileDir);
+        if (fileDir === "/" || fileDir === ".") {
+            result = true;
+            break;
         }
-        return result;
+        var fileNames = fs.readdirSync(fileDir);
+        if (fileNames.indexOf(path.basename(prevFilePath)) === -1) {
+            result = false;
+            break;
+        }
+        prevFilePath = fileDir;
     }
-    catch (e) {
-        return false;
-    }
+    return result;
 }
 exports.default = fileExistsWithCaseSync;
