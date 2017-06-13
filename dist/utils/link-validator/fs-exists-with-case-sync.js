@@ -2,31 +2,36 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var fs = require("fs");
 var path = require("path");
-var lodash_1 = require("lodash");
-var cache = {};
-function fileExistsWithCaseSync(file) {
-    var filepath = path.resolve(file);
-    var dirname = path.dirname(filepath);
-    var basename = path.basename(filepath);
-    var files;
-    if (cache[dirname]) {
-        files = [cache[dirname]];
+function fileExistsWithCaseSync(filepath) {
+    try {
+        return recurse(filepath);
     }
-    else {
-        try {
-            files = cache[dirname] = fs.readdirSync(dirname);
-        }
-        catch (e) {
-            return false;
-        }
+    catch (e) {
+        return false;
     }
-    cache = {};
-    return check(files, dirname, basename);
 }
-function check(files, dirname, basename) {
-    return lodash_1.some(files, function (file) {
-        var result = file === basename;
+function recurse(filepath) {
+    var dir = filepath;
+    var prevfilepath = filepath;
+    var result = null;
+    try {
+        while (result === null) {
+            dir = path.dirname(dir);
+            if (dir === "/" || dir === ".") {
+                result = true;
+                break;
+            }
+            var filenames = fs.readdirSync(dir);
+            if (filenames.indexOf(path.basename(prevfilepath)) === -1) {
+                result = false;
+                break;
+            }
+            prevfilepath = dir;
+        }
         return result;
-    });
+    }
+    catch (e) {
+        return false;
+    }
 }
 exports.default = fileExistsWithCaseSync;

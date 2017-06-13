@@ -1,6 +1,6 @@
 {
   "name": "markdown-link-reporter",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "A module for finding broken local markdown links.",
   "main": "dist/index.js",
   "repository": {

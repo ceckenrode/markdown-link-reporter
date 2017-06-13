@@ -1,34 +1,38 @@
 import * as fs from "fs";
 import * as path from "path";
-import { some as _some } from "lodash";
-
-let cache: any = {};
+import { forEach as _forEach } from "lodash";
 
 // Does a case sensitive check to see if a file exist
-function fileExistsWithCaseSync(file: string): boolean {
-  const filepath = path.resolve(file);
-  const dirname = path.dirname(filepath);
-  const basename = path.basename(filepath);
-
-  let files: string[];
-  if (cache[dirname]) {
-    files = [cache[dirname]];
-  } else {
-    try {
-      files = cache[dirname] = fs.readdirSync(dirname);
-    } catch (e) {
-      return false;
-    }
+function fileExistsWithCaseSync(filepath: string): boolean {
+  try {
+    return recurse(filepath);
+  } catch (e) {
+    return false;
   }
-  cache = {};
-  return check(files, dirname, basename);
 }
 
-function check(files: string[], dirname: string, basename: string) {
-  return _some(files, file => {
-    const result = file === basename;
+function recurse(filepath: string): boolean {
+  let dir = filepath;
+  let prevfilepath = filepath;
+  let result: null | false | true = null;
+  try {
+    while (result === null) {
+      dir = path.dirname(dir);
+      if (dir === "/" || dir === ".") {
+        result = true;
+        break;
+      }
+      const filenames: string[] = fs.readdirSync(dir);
+      if (filenames.indexOf(path.basename(prevfilepath)) === -1) {
+        result = false;
+        break;
+      }
+      prevfilepath = dir;
+    }
     return result;
-  });
+  } catch (e) {
+    return false;
+  }
 }
 
 export default fileExistsWithCaseSync;

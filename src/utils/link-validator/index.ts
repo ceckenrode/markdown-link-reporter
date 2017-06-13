@@ -11,10 +11,10 @@ function validateLinks(
   opts: Options
 ): ValidatedLink[] {
   const validatedLinks: ValidatedLink[] = _map(markdownLinks, md => {
-    const splitMdPath = path.join(opts.cwd, md.filepath).split("/");
+    const fileDir =  path.dirname(path.join(opts.cwd, md.filepath));
     md.links = _map(md.links, link => {
       const resolvedLinkPath = path.join(
-        splitMdPath.slice(0, splitMdPath.length - 1).join("/"),
+        fileDir,
         uriDecoder(link.url)
       );
       link.valid = fsExistCaseSync(resolvedLinkPath);
