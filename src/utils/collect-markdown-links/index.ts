@@ -27,7 +27,7 @@ function collectMarkdownLinks(opts: Options): ValidatedLink[] {
   const markdownFileLinks: ValidatedLink[] = [];
 
   _forEach(markdownFiles, file => {
-    const fileLines: string[] = fs.readFileSync(file, "utf-8").split("\n");
+    const fileLines: string[] = fs.readFileSync(path.join(opts.cwd, file), "utf-8").split("\n");
     const links: { link: string; line: number }[] = [];
     _forEach(fileLines, (line, index) => {
       const matches = line.match(MARKDOWN_LINK_MATCH) || [];

@@ -1,5 +1,6 @@
 import * as chalk from "chalk";
 import { forEach as _forEach } from "lodash";
+import generateSeperator from "./generate-seperator";
 import { ValidatedLink } from "../../types";
 
 function logResults(validatedLinks: ValidatedLink[]): void {
@@ -30,11 +31,7 @@ function logResults(validatedLinks: ValidatedLink[]): void {
             chalk.red.bold(`⬅  line ${brokenLink.line}`)
         );
       });
-      console.log(
-        chalk.magenta.bold(
-          "\n--------------------------------------------------------------------------------------------------"
-        )
-      );
+      console.log(chalk.magenta.bold("\n" + generateSeperator()));
     }
   });
   if (totalBrokenLinks) {

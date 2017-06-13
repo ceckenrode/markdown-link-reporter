@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var chalk = require("chalk");
 var lodash_1 = require("lodash");
+var generate_seperator_1 = require("./generate-seperator");
 function logResults(validatedLinks) {
     var totalBrokenLinks = 0;
     var totalBrokenFiles = 0;
@@ -24,7 +25,7 @@ function logResults(validatedLinks) {
                     " " +
                     chalk.red.bold("\u2B05  line " + brokenLink.line));
             });
-            console.log(chalk.magenta.bold("\n--------------------------------------------------------------------------------------------------"));
+            console.log(chalk.magenta.bold("\n" + generate_seperator_1.default()));
         }
     });
     if (totalBrokenLinks) {

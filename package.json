@@ -1,6 +1,6 @@
 {
   "name": "markdown-link-reporter",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A module for finding broken local markdown links.",
   "main": "dist/index.js",
   "repository": {
@@ -8,7 +8,8 @@
     "url": "https://github.com/ceckenrode/markdown-link-reporter.git"
   },
   "bin": {
-    "md-report": "bin/index"
+    "md-report": "bin/index",
+    "markdown-link-reporter": "bin/index"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

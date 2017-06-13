@@ -1,6 +1,7 @@
 import * as path from "path";
 import * as fs from "fs";
 import { map as _map } from "lodash";
+import uriDecoder from "../uri-decoder";
 import { ValidatedLink } from "./../../types";
 import { Options } from "./../../types";
 
@@ -13,7 +14,7 @@ function validateLinks(
     md.links = _map(md.links, link => {
       const resolvedLinkPath = path.join(
         splitMdPath.slice(0, splitMdPath.length - 1).join("/"),
-        link.url
+        uriDecoder(link.url)
       );
       link.valid = fs.existsSync(resolvedLinkPath);
       return link;

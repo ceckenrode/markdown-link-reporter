@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var glob = require("glob");
+var path = require("path");
 var fs = require("fs");
 var lodash_1 = require("lodash");
 var patterns_1 = require("../../patterns");
@@ -23,7 +24,7 @@ function collectMarkdownLinks(opts) {
     }
     var markdownFileLinks = [];
     lodash_1.forEach(markdownFiles, function (file) {
-        var fileLines = fs.readFileSync(file, "utf-8").split("\n");
+        var fileLines = fs.readFileSync(path.join(opts.cwd, file), "utf-8").split("\n");
         var links = [];
         lodash_1.forEach(fileLines, function (line, index) {
             var matches = line.match(patterns_1.MARKDOWN_LINK_MATCH) || [];
