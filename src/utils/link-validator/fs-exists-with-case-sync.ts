@@ -1,15 +1,34 @@
 import * as fs from "fs";
 import * as path from "path";
+import { some as _some } from "lodash";
 
-// Does a case sensitive check to see if a file exist, since travis runs case sensitive on linux
-function fileExistsWithCaseSync(filepath: string): boolean {
-  const dir = path.dirname(filepath);
-  if (dir === "/" || dir === ".") return true;
-  const filenames = fs.readdirSync(dir);
-  if (filenames.indexOf(path.basename(filepath)) === -1) {
-    return false;
+let cache: any = {};
+
+// Does a case sensitive check to see if a file exist
+function fileExistsWithCaseSync(file: string): boolean {
+  const filepath = path.resolve(file);
+  const dirname = path.dirname(filepath);
+  const basename = path.basename(filepath);
+
+  let files: string[];
+  if (cache[dirname]) {
+    files = [cache[dirname]];
+  } else {
+    try {
+      files = cache[dirname] = fs.readdirSync(dirname);
+    } catch (e) {
+      return false;
+    }
   }
-  return fileExistsWithCaseSync(dir);
+  cache = {};
+  return check(files, dirname, basename);
+}
+
+function check(files: string[], dirname: string, basename: string) {
+  return _some(files, file => {
+    const result = file === basename;
+    return result;
+  });
 }
 
 export default fileExistsWithCaseSync;
