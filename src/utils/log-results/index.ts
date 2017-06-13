@@ -3,6 +3,7 @@ import { forEach as _forEach } from "lodash";
 import generateSeperator from "./generate-seperator";
 import { ValidatedLink } from "../../types";
 
+// logResults is responsible for printing the final output of the cli to the terminal
 function logResults(validatedLinks: ValidatedLink[]): void {
   let totalBrokenLinks: number = 0;
   let totalBrokenFiles: number = 0;
@@ -38,7 +39,11 @@ function logResults(validatedLinks: ValidatedLink[]): void {
     console.log(chalk.bgRed.bold.underline("\nMarkdown Tests Failed:"));
     console.log(
       chalk.red.bold.underline(
-        `\n${totalBrokenLinks} Broken Links in ${totalBrokenFiles} Files`
+        `\n${totalBrokenLinks} Broken Link${totalBrokenLinks > 1
+          ? "s"
+          : ""} in ${totalBrokenFiles > 1
+          ? totalBrokenFiles + " Files"
+          : totalBrokenFiles + " File"}`
       )
     );
     process.exit(1);

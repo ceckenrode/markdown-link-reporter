@@ -6,6 +6,7 @@ import { ValidatedLink } from "../../types";
 import { Options } from "./../../types";
 import { MARKDOWN_LINK_MATCH, MARKDOWN_LINK_URL_MATCH } from "../../patterns";
 
+// collectMarkdownLinks goes through each directory and creates an array of ValidatedLink objects describing each markdown file and the links inside of it
 function collectMarkdownLinks(opts: Options): ValidatedLink[] {
   let markdownFiles: string[] = [];
   try {
@@ -27,6 +28,7 @@ function collectMarkdownLinks(opts: Options): ValidatedLink[] {
   const markdownFileLinks: ValidatedLink[] = [];
 
   _forEach(markdownFiles, file => {
+    // Split each file into lines so we can later print the line number for each invalid link
     const fileLines: string[] = fs.readFileSync(path.join(opts.cwd, file), "utf-8").split("\n");
     const links: { link: string; line: number }[] = [];
     _forEach(fileLines, (line, index) => {
@@ -42,7 +44,7 @@ function collectMarkdownLinks(opts: Options): ValidatedLink[] {
       return {
         link: link.link,
         line: link.line,
-        url: (link.link.match(MARKDOWN_LINK_URL_MATCH) || [""])[1],
+        url: (link.link.match(MARKDOWN_LINK_URL_MATCH) || [])[1],
         valid: false
       };
     });

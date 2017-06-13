@@ -30,7 +30,11 @@ function logResults(validatedLinks) {
     });
     if (totalBrokenLinks) {
         console.log(chalk.bgRed.bold.underline("\nMarkdown Tests Failed:"));
-        console.log(chalk.red.bold.underline("\n" + totalBrokenLinks + " Broken Links in " + totalBrokenFiles + " Files"));
+        console.log(chalk.red.bold.underline("\n" + totalBrokenLinks + " Broken Link" + (totalBrokenLinks > 1
+            ? "s"
+            : "") + " in " + (totalBrokenFiles > 1
+            ? totalBrokenFiles + " Files"
+            : totalBrokenFiles + " File")));
         process.exit(1);
     }
     else {

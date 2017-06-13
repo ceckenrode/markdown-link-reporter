@@ -1,5 +1,6 @@
 import { map as _map } from "lodash";
-
+// uriDecoder decodes an uri's ascii decoding if there is any for fs to resolve the path
+// The built-in decodeURI function doesn't work with %23 (# symbol)
 function uriDecoder(URI: string): string {
   let decodedURI: string = URI;
   if (URI.indexOf("%") > -1) {

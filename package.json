@@ -1,6 +1,6 @@
 {
   "name": "markdown-link-reporter",
-  "version": "1.0.4",
+  "version": "1.0.6",
   "description": "A module for finding broken local markdown links.",
   "main": "dist/index.js",
   "repository": {
@@ -14,6 +14,18 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "keywords": [
+    "markdown",
+    "link",
+    "check",
+    "checker",
+    "dead",
+    "url",
+    "test",
+    "hyperlink",
+    "href",
+    "md"
+  ],
   "author": "Christian Eckenrode <christian@develop.io>",
   "license": "ISC",
   "dependencies": {

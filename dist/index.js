@@ -9,5 +9,5 @@ var helpers_1 = require("./utils/helpers");
 var opts = parse_opts_1.default();
 console.log(chalk.bold.cyan("Starting Markdown Reporter..."));
 helpers_1.runChain(collect_markdown_links_1.default(opts))
-    .chain(function (mdMap) { return link_validator_1.default(mdMap, opts); })
+    .chain(function (markdownLinks) { return link_validator_1.default(markdownLinks, opts); })
     .fold(function (validatedLinks) { return log_results_1.default(validatedLinks); });

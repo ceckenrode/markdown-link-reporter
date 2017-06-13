@@ -39,7 +39,7 @@ function collectMarkdownLinks(opts) {
             return {
                 link: link.link,
                 line: link.line,
-                url: (link.link.match(patterns_1.MARKDOWN_LINK_URL_MATCH) || [""])[1],
+                url: (link.link.match(patterns_1.MARKDOWN_LINK_URL_MATCH) || [])[1],
                 valid: false
             };
         });
