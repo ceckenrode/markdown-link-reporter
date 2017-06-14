@@ -8,7 +8,7 @@ function fileExistsWithCaseSync(filePath: string): boolean {
   const fileDir = path.dirname(filePath);
   const fileBase = path.basename(filePath);
   if (cache[fileDir]) {
-    return cache[fileDir].indexOf(fileBase) ? true : false;
+    return cache[fileDir].indexOf(fileBase) > -1;
   }
   try {
     return scanDirectory(filePath);
@@ -24,11 +24,11 @@ function scanDirectory(filePath: string): boolean {
   while (result === null) {
     fileDir = path.dirname(fileDir);
     if (fileDir === "/" || fileDir === ".") {
-      return result = true;
+      return (result = true);
     }
     const fileNames: string[] = (cache[fileDir] = fs.readdirSync(fileDir));
     if (fileNames.indexOf(path.basename(prevFilePath)) === -1) {
-      return result = false;
+      return (result = false);
     }
     prevFilePath = fileDir;
   }
