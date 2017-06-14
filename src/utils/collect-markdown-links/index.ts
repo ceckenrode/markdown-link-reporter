@@ -15,10 +15,7 @@ function collectMarkdownLinks(opts: Options): ValidatedLink[] {
       cwd: opts.cwd
     });
   } catch (e) {
-    if (
-      fs.existsSync(opts.cwd) &&
-      opts.cwd.substring(opts.cwd.length - 2, opts.cwd.length) === "md"
-    ) {
+    if (fs.existsSync(opts.cwd) && path.extname(opts.cwd) === ".md") {
       markdownFiles = [opts.cwd];
     } else {
       throw new Error("Not a valid directory path or path to a markdown file.");
@@ -29,7 +26,9 @@ function collectMarkdownLinks(opts: Options): ValidatedLink[] {
 
   _forEach(markdownFiles, file => {
     // Split each file into lines so we can later print the line number for each invalid link
-    const fileLines: string[] = fs.readFileSync(path.join(opts.cwd, file), "utf-8").split("\n");
+    const fileLines: string[] = fs
+      .readFileSync(path.join(opts.cwd, file), "utf-8")
+      .split("\n");
     const links: { link: string; line: number }[] = [];
     _forEach(fileLines, (line, index) => {
       const matches = line.match(MARKDOWN_LINK_MATCH) || [];

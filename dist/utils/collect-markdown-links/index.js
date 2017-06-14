@@ -14,8 +14,7 @@ function collectMarkdownLinks(opts) {
         });
     }
     catch (e) {
-        if (fs.existsSync(opts.cwd) &&
-            opts.cwd.substring(opts.cwd.length - 2, opts.cwd.length) === "md") {
+        if (fs.existsSync(opts.cwd) && path.extname(opts.cwd) === ".md") {
             markdownFiles = [opts.cwd];
         }
         else {
@@ -24,7 +23,9 @@ function collectMarkdownLinks(opts) {
     }
     var markdownFileLinks = [];
     lodash_1.forEach(markdownFiles, function (file) {
-        var fileLines = fs.readFileSync(path.join(opts.cwd, file), "utf-8").split("\n");
+        var fileLines = fs
+            .readFileSync(path.join(opts.cwd, file), "utf-8")
+            .split("\n");
         var links = [];
         lodash_1.forEach(fileLines, function (line, index) {
             var matches = line.match(patterns_1.MARKDOWN_LINK_MATCH) || [];

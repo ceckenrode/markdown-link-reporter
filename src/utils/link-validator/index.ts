@@ -5,13 +5,12 @@ import fsExistCaseSync from "./fs-exists-with-case-sync";
 import { ValidatedLink } from "./../../types";
 import { Options } from "./../../types";
 
-// linkValidator takes in the ValidatedLink array and determines whether each link points to a valid filepath
 function validateLinks(
   markdownLinks: ValidatedLink[],
   opts: Options
 ): ValidatedLink[] {
   const validatedLinks: ValidatedLink[] = _map(markdownLinks, md => {
-    const fileDir =  path.dirname(path.join(opts.cwd, md.filepath));
+    const fileDir = path.dirname(path.join(opts.cwd, md.filepath));
     md.links = _map(md.links, link => {
       const resolvedLinkPath = path.join(
         fileDir,

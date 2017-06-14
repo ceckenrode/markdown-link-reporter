@@ -9,12 +9,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 
-* Improved `MARKDOWN_LINK_MATCH` regex pattern for greater accuracy
+* Improve `MARKDOWN_LINK_MATCH` regex pattern for greater accuracy
 
-* Added comments to ts files
+* Add comments to ts files
 
-* Added chalk to color output
+* Add chalk to color output
 
-* Added URI decoder
+* Add URI decoder
 
 * Add case sensitive file checks
+
+## [1.11]
+
+### Added
+
+* Add caching to fsExistFileSync

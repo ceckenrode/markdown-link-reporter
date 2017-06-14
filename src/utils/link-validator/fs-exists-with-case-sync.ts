@@ -1,29 +1,34 @@
 import * as fs from "fs";
 import * as path from "path";
 
-// Does a case sensitive check to see if a file exist
-function fileExistsWithCaseSync(filepath: string): boolean {
+const cache: any = {};
+
+// Checks to see if the information is cached before checking the file system
+function fileExistsWithCaseSync(filePath: string): boolean {
+  const fileDir = path.dirname(filePath);
+  const fileBase = path.basename(filePath);
+  if (cache[fileDir]) {
+    return cache[fileDir].indexOf(fileBase) ? true : false;
+  }
   try {
-    return recurse(filepath);
+    return scanDirectory(filePath);
   } catch (e) {
     return false;
   }
 }
 
-function recurse(filePath: string): boolean {
+function scanDirectory(filePath: string): boolean {
   let fileDir = filePath;
   let prevFilePath = filePath;
   let result: null | false | true = null;
   while (result === null) {
     fileDir = path.dirname(fileDir);
     if (fileDir === "/" || fileDir === ".") {
-      result = true;
-      break;
+      return result = true;
     }
-    const fileNames: string[] = fs.readdirSync(fileDir);
+    const fileNames: string[] = (cache[fileDir] = fs.readdirSync(fileDir));
     if (fileNames.indexOf(path.basename(prevFilePath)) === -1) {
-      result = false;
-      break;
+      return result = false;
     }
     prevFilePath = fileDir;
   }
