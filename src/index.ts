@@ -1,5 +1,3 @@
-import * as path from "path";
-import * as fs from "fs";
 import * as chalk from "chalk";
 import collectMarkdownLinks from "./utils/collect-markdown-links";
 import validateLinks from "./utils/link-validator";
