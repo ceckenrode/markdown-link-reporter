@@ -6,12 +6,17 @@ import { ValidatedLink } from "../../types";
 import { Options } from "./../../types";
 import { MARKDOWN_LINK_MATCH, MARKDOWN_LINK_URL_MATCH } from "../../patterns";
 
+import getRemarkIgnorePatterns from '../ignore';
+
 // collectMarkdownLinks goes through each directory and creates an array of ValidatedLink objects describing each markdown file and the links inside of it
 function collectMarkdownLinks(opts: Options): ValidatedLink[] {
   let markdownFiles: string[] = [];
+
+  const ignore = getRemarkIgnorePatterns(opts);
+
   try {
     markdownFiles = glob.sync("**/*.md", {
-      ignore: "**/node_modules/**",
+      ignore: ["**/node_modules/**"].concat(ignore),
       cwd: opts.cwd
     });
   } catch (e) {
